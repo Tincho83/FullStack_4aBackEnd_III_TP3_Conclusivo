@@ -1,0 +1,195 @@
+paths:
+
+  #Route:/api/adoptions/:ok.20250125
+  /api/adoptions:
+
+    #Get:Ok.20250125
+    get:
+      summary: Obtiene todas las adopciones registradas.
+      description: Obtiene todas las adopciones registradas.
+      tags:
+        - Adoptions
+      responses:
+        "200":
+          description: Las adopciones fueron obtenidas correctamente desde la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:
+                    type: array
+                    description: Datos obtenidos.
+                    items:
+                      type: object
+                      description: Objeto de adopción.
+                      $ref: '#components/schemas/Adoption'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                      - _id: "6765f2cb316e540ecd5ed90d"
+                        owner: "675ce371995b6f225a0df6d2"
+                        pet: "675cbe964e7fcc2c7dcb90d3"
+                        __v: 0
+
+  #Route:/api/adoptions/{aid}:ok.20250125  
+  /api/adoptions/{aid}:
+
+    #Get:ok.20250125
+    get:
+      summary: Obtiene la adopcion registrada mediante el ID.
+      description: Obtiene la adopcion registrada mediante el ID.
+      tags:
+        - Adoptions
+      parameters:
+      - name: aid
+        in: path
+        required: true
+        description: ID de la adopcion a buscar.
+        schema:
+          type: string
+      # - name: Authorization
+      #   in: header
+      #   required: true
+      #   description: Token de autenticación
+      #   schema:
+      #     type: string  
+      responses:
+        "200":
+          description: La adopcion (segun el uid ingresado en path) fue obtenida correctamente desde la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:
+                    $ref: '#components/schemas/Adoption'
+              examples:
+                success:
+                  summary: Ejemplo exitoso
+                  value:
+                    status: success
+                    payload:
+                      _id: "6765f2cb316e540ecd5ed90d"
+                      owner: "675ce371995b6f225a0df6d2"
+                      pet: "675cbe964e7fcc2c7dcb90d3"
+                      __v: 0                        
+        "400":
+          description: ID Pet invalido.
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Adoption ID Error: Invalid ID Adoption.***"
+        "404":
+          description: Adopcion no encontrada.
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Adoption not found.: Adoption not found.***"
+
+  #Route:/api/adoptions/{uid}/{pid}:ok.20250125
+  /api/adoptions/{uid}/{pid}:
+
+    #Post:ok.20250125 
+    post:
+      summary: Registra una nueva adopcion entre un usuario (ID Usuarios) y una mascota (ID Mascota).
+      description: Registra una nueva adopcion entre un usuario (ID Usuarios) y una mascota (ID Mascota).
+      tags:
+        - Adoptions
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario que adopta.
+          schema:
+            type: string
+      # - name: Authorization
+      #   in: header
+      #   required: true
+      #   description: Token de autenticación
+      #   schema:
+      #     type: string  
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota a adoptar.
+          schema:
+            type: string
+      # - name: Authorization
+      #   in: header
+      #   required: true
+      #   description: Token de autenticación
+      #   schema:
+      #     type: string  
+      responses:
+        "200":
+          description: La adopcion (segun el uid y pid ingresado en path) fue registrada correctamente en la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string
+                    example: Pet adopted
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: pet adopted
+
+        "400":
+          description: ID User/Pet invalido.
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User/Pet ID Error: Invalid ID User/Pet.***"
+        "404":
+          description: Usuario o Mascota no encontrada, o bien la mascota ya fue adoptada.
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User/Pet not found: User/Pet not found. | Pet is already adopted: Pet not found.***"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+

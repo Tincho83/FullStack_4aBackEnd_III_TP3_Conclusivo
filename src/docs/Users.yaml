@@ -1,0 +1,360 @@
+paths:
+  
+  #Route:/api/users/:Ok.20250125
+  /api/users/:
+
+    #Get:Ok.20250125
+    get:
+      summary: Obtiene todos los usuario registrados en la Base de Datos para hacer adopcion.
+      description: Obtiene todos los usuario registrados en la Base de Datos para hacer adopcion.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Los usuarios fueron obtenidos correctamente desde la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:
+                    type: array
+                    description: Datos obtenidos.
+                    items:
+                      type: object
+                      description: Usuarios.
+                      $ref: '#components/schemas/User'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                      - _id: "675ce371995b6f225a0df6d2"
+                        first_name: "Pepe"
+                        last_name: "Martinez"
+                        email: "pepepe@test.com"
+                        password: "abcd123"
+                        role:  "user o admin"                 
+                        pets:
+                          - _id: "675cbe964e7fcc2c7dcb90d3"
+                          - _id: "6764e07e5adbc84559459c64"
+                        documents:
+                          - name: "DNI"
+                            reference: "http://www.dominio.com/doc/img003.pdf"
+                        last_connection: "2025-01-01T00:00:00.000Z"                          
+                        createdAt: "2024-01-01T00:00:00.000Z"
+                        updatedAt: "2025-01-01T00:00:00.000Z"
+                        __v: 0
+
+    #Post:Ok.20250125
+    post:
+      summary: Registra un usuario en la Base de Datos para hacer adopcion.
+      description: Registra un usuario en la Base de Datos para hacer adopcion.
+      tags:
+        - Users
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/AddUser'
+      responses:
+        "200":
+          description: Usuario registrado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado del proceso (success/error).
+                    example: success
+                  payload:
+                    $ref: '#components/schemas/User'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                        _id: "675ce371995b6f225a0df6d2"
+                        first_name: "Ignacio"
+                        last_name: "Ciona"
+                        email: "ignacio.ciona@test.com"
+                        password: "Coder123"
+                        role:  "user o admin"          
+                        pets: []                          
+                        documents: []                          
+                        last_connection:  "2025-01-01T00:00:00.000Z"   
+                        createdAt: "2024-01-01T00:00:00.000Z"
+                        updatedAt: "2025-01-01T00:00:00.000Z"
+                        __v: 0
+                        
+        "400":
+           description: Revisar campos requeridos
+           content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Create User Error: Fields need to be completed.***"
+
+        "409":
+           description: Revisar campos requeridos
+           content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User already exist.: The user already exists.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+
+
+
+  #Route:/api/users/{uid}:Ok.20250125
+  /api/users/{uid}:
+
+    #Get:Ok.20250125
+    get:
+      summary: Obtiene un usuario (ingresado por ID) registrado en la Base de Datos para hacer adopcion.
+      description: Obtiene un usuario (ingresado por ID) registrado en la Base de Datos para hacer adopcion.
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: ID del usuario que se esta consultando.
+        schema:
+          type: string
+      # - name: Authorization
+      #   in: header
+      #   required: true
+      #   description: Token de autenticación
+      #   schema:
+      #     type: string            
+      responses:
+        "200":
+          description: El usuario (segun el ID (uid) ingresado en path) fue obtenido correctamente desde la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:
+                      type: object
+                      description: Usuario.        
+                      $ref: '#components/schemas/User'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                      _id: "675ce371995b6f225a0df6d2"
+                      first_name: "Pepe"
+                      last_name: "Martinez"
+                      email: "pepepe@test.com"
+                      password: "abcd123"
+                      role:  "user o admin"                 
+                      pets:
+                        - _id: "675cbe964e7fcc2c7dcb90d3"
+                        - _id: "6764e07e5adbc84559459c64"
+                      documents:
+                        - name: "DNI"
+                          reference: "http://www.dominio.com/doc/img003.pdf"
+                      last_connection: "2025-01-01T00:00:00.000Z"                          
+                      createdAt: "2024-01-01T00:00:00.000Z"
+                      updatedAt: "2025-01-01T00:00:00.000Z"
+                      __v: 0
+        "400":
+          description: Revisar campos requeridos
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User ID Error: Invalid ID User.***"
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User not found: User not found.***"
+
+    #Put:Ok.20250125
+    put:
+      summary: Actualiza un usuario (ingresado por ID) registrado en la Base de Datos para hacer adopcion.
+      description: Actualiza un usuario (ingresado por ID) registrado en la Base de Datos para hacer adopcion.
+      tags:
+        - Users
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario que se desea actualizar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/UpdateUser'
+      responses:
+        "200":
+          description: Usuario actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se actualizo.
+                    example: user updated
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: user updated
+
+        "400":
+          description: Revisar campos requeridos
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User ID Error: Invalid ID User.***"
+
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User not found: User not found.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+    #Delete:Ok.20250125
+    delete:
+      summary: Borra un usuario (ingresado por ID) registrado en la Base de Datos para hacer adopcion.
+      description: Borra un usuario (ingresado por ID) registrado en la Base de Datos para hacer adopcion.
+      tags:
+        - Users
+      security:
+        - basicAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario que se desea borrar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Usuario eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se borro.
+                    example: user deleted
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: user deleted
+
+        "400":
+          description: Revisar campos requeridos
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User ID Error: Invalid ID User.***"
+
+        "404":
+          description: Usuario con el ID proporcionado no fue encontrado
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "User Not Found: User not found.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+

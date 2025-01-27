@@ -1,0 +1,240 @@
+paths:
+
+  #Route:/api/sessions/register:ok.20250125
+  /api/sessions/register:
+
+    #Post:ok.20250125
+    post:
+      summary: Registro de un nuevo usuario en el sistema.
+      description: Registro de un nuevo usuario en el sistema.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/AddUser'
+      responses:
+        "200":
+          description: Usuario registrado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: Id de Usuario creado.
+                    example: 67902ebf92d9d200ffd89dc5
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: 67902ebf92d9d200ffd89dc5
+
+        "400":
+          description: Error en los datos enviados
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Register User Error: Fields need to be completed.***"
+
+        "409":
+          description: "Error: usuario ya existente"
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Create User Error: The user already exists.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+
+  #Route:/api/sessions/login:ok.20250125
+  /api/sessions/login:
+
+    #Post:ok.20250125
+    post:
+      summary: Inicio de sesion de Usuario
+      description: Permite iniciar sesion con las credenciales de un usuario existente.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/LoginUser'                            
+      responses:
+        "200":
+          description: Inicio de sesion exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se actualizo.
+                    example: Logged in
+              examples:
+                success:
+                  summary: Ejemplo Correcto
+                  value:
+                    status: success
+                    message: Logged in         
+
+        "400":
+          description: Error en las credenciales proporcionadas
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Login User Error: Fields need to be completed.***"
+
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Login User Error: User not found.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+
+  #Route:/api/sessions/current:ok.20250125
+  /api/sessions/current:
+
+    #Get:ok.20250125
+    get:
+      summary: Obtener informacion del usuario actualmente logeado
+      description: Retorna los datos del usuario autenticado mediante una cookie.
+      tags:
+        - Sessions
+      responses:
+        "200":
+          description: Informacion del usuario retornada con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Indicador de estado del proceso (success/error).
+                    example: success
+                  payload:
+                    $ref: '#components/schemas/Session'
+              examples:
+                success:
+                  summary: Ejemplo exitoso
+                  value:
+                    status: success
+                    payload:
+                        name: "Pepe"
+                        role: "User"
+                        email: "pepe@pepito.com"                        
+                        iat: "1234567890"
+                        exp: "1234568997"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: errorHandler
+                    error: "Error interno del servidor: jwt must be provided"
+
+#Consultar si se debe realizar?
+  #Route:/api/sessions/unprotectedLogin:???.20250125
+  /api/sessions/unprotectedLogin:
+
+    #Get:???.20250125
+    get:
+      summary: Inicio de sesión sin protección
+      description: Similar al login, pero sin protección completa.
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Inicio de sesión sin protección exitoso
+        '400':
+          description: Error en las credenciales proporcionadas
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+
+  #Route:/api/sessions/unprotectedCurrent:???.20250125
+  /api/sessions/unprotectedCurrent:
+
+    #Get:???.20250125
+    get:
+      summary: Obtener información sin protección
+      description: Retorna los datos del usuario autenticado en una cookie sin protección adicional.
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Información obtenida con éxito
+        '401':
+          description: Usuario no autenticado o cookie inválida
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
