@@ -5,6 +5,7 @@ import { errorArgsPet } from "../utils/ErrorsHandlers/DataErrors.js";
 import { ERROR_TYPES } from "../utils/ErrorsHandlers/EnumErrors.js";
 import { ERROR_MESSAGES } from "../utils/ErrorsHandlers/ErrorMessages.js";
 import __dirname from "../utils/index.js";
+import fs from 'fs/promises';
 import { generatePet_Mock } from "../utils/utils.js";
 import colors from 'colors';
 import multer from 'multer';
@@ -113,21 +114,26 @@ const createPetWithImage = async (req, res, next) => {
         req.logger.debug(`> PETS Controller: Create with image...`);
 
         const file = req.file;
-        const { name, specie, birthDate, image } = req.body;
-        if (!name || !specie || !file) {
+        const { name, specie, birthDate } = req.body;
+
+        if (!name || !specie || !file ) {
+            await removeUploadedFiles(file);
             req.logger.debug(`> PETS Controller: Create with image: Incomplete registration values. Please verify data... ${JSON.stringify(file, null, 5)} ${JSON.stringify(req.body, null, 5)}`);
             CustomError.createError("Create Pet Error", ERROR_MESSAGES.PET.MISSING_FIELDS, errorArgsPet(req.body), ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
         if (!name) {
+            await removeUploadedFiles(file);
             CustomError.createError("Create Pet Error", ERROR_MESSAGES.PET.NAME_REQUIRED, errorArgsPet(req.body), ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
         if (!specie) {
+            await removeUploadedFiles(file);
             CustomError.createError("Create Pet Error", ERROR_MESSAGES.PET.SPECIE_REQUIRED, errorArgsPet(req.body), ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
         if (!file) {
+            await removeUploadedFiles(file);
             CustomError.createError("Create Pet Error", ERROR_MESSAGES.PET.FILE_NOT_FOUND, errorArgsPet(req.body), ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
@@ -143,7 +149,7 @@ const createPetWithImage = async (req, res, next) => {
 
         res.send({ status: "success", payload: result })
     } catch (error) {
-
+        await removeUploadedFiles(req.file); 
         return next(error);
     }
 };
@@ -207,6 +213,7 @@ const deletePet = async (req, res, next) => {
         req.logger.debug(`> PETS Controller: Delete ${petId}...`);
 
         if (!mongoose.Types.ObjectId.isValid(petId)) {
+
             req.logger.debug(`> PETS Controller: Delete: Error en ID: ${petId}...`);
             req.logger.warning(`Invalid Pet.\r\n`);
 
@@ -215,6 +222,7 @@ const deletePet = async (req, res, next) => {
 
         const pet = await petsService.getBy(petId);
         if (!pet) {
+
             req.logger.debug(`> PETS Controller: Delete: ID ${petId} not found...`);
             req.logger.warning(`Pet not found.\r\n`);
 
@@ -229,8 +237,21 @@ const deletePet = async (req, res, next) => {
         res.send({ status: "success", message: "pet deleted" });
 
     } catch (error) {
-   
+
         return next(error);
+    }
+};
+
+const removeUploadedFiles = async (files) => {
+    if (!files) return;
+    try {
+        if (Array.isArray(files)) {
+            await Promise.all(files.map(file => fs.unlink(file.path)));
+        } else if (typeof files === "object" && files.path) {
+            await fs.unlink(files.path);
+        }
+    } catch (err) {
+       // console.error("Error deleting files:", err);
     }
 };
 

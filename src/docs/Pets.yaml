@@ -2,7 +2,6 @@ paths:
 
   #Route:/api/pets/:ok.20250125
   /api/pets/:
-
     #Get:Ok.20250125
     get:
       summary: Obtiene todas las mascotas registradas para la adopcion o que han sido adoptadas.
@@ -26,7 +25,6 @@ paths:
                     description: Datos obtenidos.
                     items:
                       type: object
-                      description: Mascota para la adopcion.
                       $ref: '#components/schemas/Pet'
               examples:
                 success:
@@ -44,7 +42,6 @@ paths:
                         createdAt: "2024-01-01T00:00:00.000Z"
                         updatedAt: "2025-01-01T00:00:00.000Z"
                         __v: 0
-          
     #Post:Ok.20250125
     post:
       summary: Registra una mascota preparada para la adopcion.
@@ -52,8 +49,8 @@ paths:
       tags:
         - Pets
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -112,9 +109,8 @@ paths:
                     status: error
                     error: Internal Server Error
 
- #Route:/api/pets/withimage:ok.20250125
+  #Route:/api/pets/withimage:ok.20250125
   /api/pets/withimage:
-
     #Post:ok.20250125 
     post:
       summary: Registra una mascota preparada para la adopcion con una imagen.
@@ -122,8 +118,8 @@ paths:
       tags:
         - Pets
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -169,7 +165,7 @@ paths:
                 error:
                   summary: Ejemplo de error
                   value:
-                    error: "Create Pet Error: Fields need to be completed.***"
+                    error: "Create Pet Error: Fields need to be completed.*** || pets validation failed: [fieldname]: Cast to [Data Type] failed for value [value] (type [type Data]) at path [Fieldname]"
 
         "500":
           description: Error interno del servidor
@@ -184,7 +180,6 @@ paths:
 
   #Route:/api/pets/{pid}:ok.20250125
   /api/pets/{pid}:
-
     #Get:ok.20250125
     get:
       summary: Obtiene una mascota (ingresado por ID) registrada para la adopcion o que ha sido adoptada.
@@ -254,7 +249,6 @@ paths:
                   summary: Ejemplo de error
                   value:
                     error: "Pet not found: Pet not found.***"
-
     #Put:ok.20250125
     put:
       summary: Actualiza los detalles de una mascota registrada (ingresado por ID).
@@ -262,8 +256,8 @@ paths:
       tags:
         - Pets
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       parameters:
         - name: pid
           in: path
@@ -308,7 +302,7 @@ paths:
                 error:
                   summary: Ejemplo de error
                   value:
-                    error: "Pet ID Error: Invalid ID Pet.*** o Update Pet Error: Fields need to be completed.***"
+                    error: "Pet ID Error: Invalid ID Pet.*** || Update Pet Error: Fields need to be completed.***"
 
         "404":
           description: Mascota no encontrada
@@ -330,7 +324,6 @@ paths:
                   value:
                     status: error
                     error: Internal Server Error
-
     #Delete:Ok.20250125
     delete:
       summary: Borra una mascota (ingresado por ID) registrada en la Base de Datos para hacer adopcion.
@@ -338,8 +331,8 @@ paths:
       tags:
         - Pets
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       parameters:
         - name: pid
           in: path

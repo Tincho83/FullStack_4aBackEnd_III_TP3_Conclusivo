@@ -20,7 +20,7 @@ components:
           example: "Perro"
         birthDate:
           type: datetime
-          description: Fecha de Nacimiento de la mascota
+          description: Fecha de Nacimiento de la mascota (YYYY-MM-DD)
           example: "2024-01-02T17:27:25.192+00:00"
         adopted: 
           type: bool
@@ -147,7 +147,7 @@ components:
                 example: "675cbe964e7fcc2c7dcb90d3"
         documents:
           type: array
-          description: Documentacion del usuario.
+          description: Documentacion del Usuario.
           items:
             type: object
             properties:

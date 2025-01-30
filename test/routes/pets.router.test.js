@@ -668,6 +668,8 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
     after(async () => { // Acciones despues de todas las pruebas        
     });
 
+    let pathImg = "./test/routes/image.jpg";
+
     it("* Router Pets / Metodo POST: 1.Registra una mascota 'Tini' y devuelve codigo de estado 200?", async () => {
         let petMock = { name: "Tini", specie: "Morsa", birthDate: new Date().toUTCString() }
 
@@ -880,6 +882,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
 
     });
 
+
     it("* Router Pets / Metodo POST (con Imagen): 11.Registra una mascota 'Bata' y devuelve codigo de estado 200?", async () => {
         let petMock = { name: "Bata", specie: "Morsa", birthDate: new Date().toUTCString() }
 
@@ -887,12 +890,13 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200);
 
     });
+
 
 
     it("* Router Pets / Metodo POST (con Imagen): 12.Registro una mascota 'Beta' y devuelve codigo de estado diferente a 200?", async () => {
@@ -902,7 +906,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -917,7 +921,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -931,7 +935,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
 
     });
 
-
+  
 
     it("* Router Pets / Metodo POST (con Imagen): 14.Registro una mascota 'Bota' y devuelve la existencia de la propiedad 'payload'?", async () => {
         let petMock = { name: "Bota", specie: "Morsa", birthDate: new Date().toUTCString() }
@@ -940,7 +944,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -966,7 +970,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -995,7 +999,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -1026,7 +1030,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -1059,7 +1063,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -1094,7 +1098,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("name", petMock.name)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(200, "Se esperaba un código de estado 200, pero se recibió " + status)
@@ -1133,7 +1137,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
             .field("namme", petMock.namme)
             .field("specie", petMock.specie)
             .field("birthDate", petMock.birthDate)
-            .attach("image", "./test/img/pets/image.jpg")
+            .attach("image", pathImg);
 
         expect(status).to.exist
         expect(status).to.be.eq(400, "Se esperaba un código de estado 400, pero se recibió " + status)
@@ -1146,7 +1150,6 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
         expect(body).to.have.property("error", "Create Pet Error: Fields need to be completed.***");
 
     });
-
 
 
 });
@@ -1175,7 +1178,7 @@ describe(">>> Pruebas: D.Router Pets: Delete", async function () {
     });
 
     after(async () => { // Acciones despues de todas las pruebas        
-        await mongoose.disconnect(); // Cierra la conexión a MongoDB 
+        //await mongoose.disconnect(); // Cierra la conexión a MongoDB 
     });
 
     it("* Router Pets / Metodo DELETE con PetID: 1.Borro mascota 'Tino' y devuelve codigo de estado 200?", async () => {

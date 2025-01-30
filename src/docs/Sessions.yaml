@@ -2,7 +2,6 @@ paths:
 
   #Route:/api/sessions/register:ok.20250125
   /api/sessions/register:
-
     #Post:ok.20250125
     post:
       summary: Registro de un nuevo usuario en el sistema.
@@ -72,7 +71,6 @@ paths:
 
   #Route:/api/sessions/login:ok.20250125
   /api/sessions/login:
-
     #Post:ok.20250125
     post:
       summary: Inicio de sesion de Usuario
@@ -99,7 +97,7 @@ paths:
                     example: success
                   message:
                     type: string                      
-                    description: mensaje indicador que si se actualizo.
+                    description: mensaje indicador que si se inicio sesion.
                     example: Logged in
               examples:
                 success:
@@ -142,7 +140,6 @@ paths:
 
   #Route:/api/sessions/current:ok.20250125
   /api/sessions/current:
-
     #Get:ok.20250125
     get:
       summary: Obtener informacion del usuario actualmente logeado
@@ -185,14 +182,80 @@ paths:
                     status: errorHandler
                     error: "Error interno del servidor: jwt must be provided"
 
+  #Route:/api/sessions/login:ok.20250125
+  /api/sessions/logout:
+    #Post:ok.20250125
+    post:
+      summary: Cierra sesion de Usuario
+      description: Permite cerrar la sesion iniciada de un usuario existente/logeado y con la token valido de sesion.
+      tags:
+        - Sessions                              
+      responses:
+        "200":
+          description: Inicio de sesion exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se cerro sesion.
+                    example: Logged out successfully
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: Logged out successfully         
+
+        "401":
+          description: Error en las credenciales de sesion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: error
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se cerro sesion.
+                    example: No active session
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: error
+                    message: No active session        
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+
+
+
 #Consultar si se debe realizar?
   #Route:/api/sessions/unprotectedLogin:???.20250125
   /api/sessions/unprotectedLogin:
-
     #Get:???.20250125
     get:
-      summary: Inicio de sesión sin protección
-      description: Similar al login, pero sin protección completa.
+      summary: Inicio de sesión sin protección (Esperar respuesta de Tutor para saber si hay que hacerlo).
+      description: Similar al login, pero sin protección completa (Esperar respuesta de Tutor para saber si hay que hacerlo).
       tags:
         - Sessions
       responses:
@@ -212,14 +275,12 @@ paths:
                     status: error
                     error: Internal Server Error
 
-
   #Route:/api/sessions/unprotectedCurrent:???.20250125
   /api/sessions/unprotectedCurrent:
-
     #Get:???.20250125
     get:
-      summary: Obtener información sin protección
-      description: Retorna los datos del usuario autenticado en una cookie sin protección adicional.
+      summary: Obtener información sin protección (Esperar respuesta de Tutor para saber si hay que hacerlo)
+      description: Retorna los datos del usuario autenticado en una cookie sin protección adicional (Esperar respuesta de Tutor para saber si hay que hacerlo).
       tags:
         - Sessions
       responses:

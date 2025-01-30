@@ -658,7 +658,7 @@ describe(">>> Pruebas: C.Router Users: Delete", async function () {
     });
 
     after(async () => { // Acciones despues de todas las pruebas        
-        await mongoose.disconnect(); // Cierra la conexión a MongoDB
+        // await mongoose.disconnect(); // Cierra la conexión a MongoDB
     });
 
     it("* Router Users / Metodo DELETE con UserID: 1.Borro usuario 'test@test.com' y devuelve codigo de estado 200?", async () => {
@@ -706,11 +706,137 @@ describe(">>> Pruebas: C.Router Users: Delete", async function () {
 
     });
 
+});
 
 
-/*
+
+describe(">>> Pruebas: D.Router Users: Post Documents", async function () {
+
+    this.timeout(7600);
+
+    before(async () => {
+        let existe = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
+        if (!existe) {
+            await mongoose.connection.collection("users").insertOne({
+                first_name: "test",
+                last_name: "test",
+                email: "test@test.com",
+                password: "$2b$Coder123"
+            })
+        } else {
+        }
+    });
+
+    beforeEach(async () => {
+    });
+
+    afterEach(async () => {
+    });
+
+    after(async () => {
+    });
+
+    it('* Router Users / Metodo Post con UserID: Subir documento correctamente. codigo 200', async () => {
+
+        let usertest = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
+        const userId = usertest._id.toString();
+
+        let pathDoc = "./test/routes/PracticaIntegradora.pdf";
+
+        let { body, status } = await requester.post(`/api/users/${userId}/documents`)
+            .field('name', 'Documento de Prueba en testing avanzado')
+            .attach('documents', pathDoc);
+
+        expect(status).to.equal(200);
+
+        expect(body.status).to.exist
+        expect(body.status).to.be.eq("success")
+        expect(body).to.have.property('status', 'success');
+
+        expect(body.payload).to.be.an('array').that.is.not.empty;
+
+        expect(body.payload[0]._id).to.exist
+        expect(isValidObjectId(body.payload[0]._id)).to.be.true
+
+        expect(fs.existsSync(body.payload[0].reference)).to.be.true
+
+    });
 
 
-*/
+    it('* Router Users / Metodo Post con UserID: Subir imagen correctamente. codigo 200', async () => {
+
+        let usertest = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
+        const userId = usertest._id.toString();
+
+        let pathImg = "./test/routes/image.jpg";
+
+        let { body, status } = await requester.post(`/api/users/${userId}/documents`)
+            .field('name', 'Imagen de Prueba en testing avanzado')
+            .attach('image', pathImg);
+
+        expect(status).to.equal(200);
+
+        expect(body.status).to.exist
+        expect(body.status).to.be.eq("success")
+        expect(body).to.have.property('status', 'success');
+
+        expect(body.payload).to.be.an('array').that.is.not.empty;
+
+        expect(body.payload[0]._id).to.exist
+        expect(isValidObjectId(body.payload[0]._id)).to.be.true
+
+        expect(fs.existsSync(body.payload[0].reference)).to.be.true
+
+    });
+
+
+    it('* Router Users / Metodo Post con UserID (No Registrado): Provoca Error 404 al subir imagen', async () => {
+
+        const userId = UserID_NotFound;
+
+        let pathImg = "./test/routes/image.jpg";
+
+        let { body, status } = await requester.post(`/api/users/${userId}/documents`)
+            .field('name', 'Imagen de Prueba en testing avanzado')
+            .attach('image', pathImg);
+
+        expect(status).to.equal(404);
+        expect(body).to.have.property('error').that.includes('User Not Found');
+    });
+
+
+
+    it('* Router Users / Metodo Post con UserID (Incorrecto): Provoca Error 400 al subir imagen', async () => {
+
+        const userId = UserID_InvalidID;
+
+        let pathImg = "./test/routes/image.jpg";
+
+        let { body, status } = await requester.post(`/api/users/${userId}/documents`)
+            .field('name', 'Imagen de Prueba en testing avanzado')
+            .attach('image', pathImg);
+
+        expect(status).to.equal(400);
+        expect(body).to.have.property('error').that.includes('User ID Error');
+    });
+
+
+    it('* Router Users / Metodo Post con UserID: Provoca Error 400 al subir imagen sin adjuntar archivos', async () => {
+
+        let usertest = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
+        const userId = usertest._id.toString();
+
+        let pathImg = "";
+
+        let { body, status } = await requester.post(`/api/users/${userId}/documents`)
+            .field('name', 'Imagen de Prueba en testing avanzado')
+            .attach('image', pathImg);
+
+        expect(status).to.equal(400);
+
+        expect(body.error).to.exist
+        expect(body.error).to.be.eq("File Upload Error: File not found.***")
+        expect(body).to.have.property('error', 'File Upload Error: File not found.***');
+    });
 
 });

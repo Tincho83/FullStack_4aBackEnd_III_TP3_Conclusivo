@@ -4,6 +4,7 @@ import { errorArgsUser } from "../utils/ErrorsHandlers/DataErrors.js";
 import { ERROR_TYPES } from "../utils/ErrorsHandlers/EnumErrors.js";
 import { ERROR_MESSAGES } from "../utils/ErrorsHandlers/ErrorMessages.js";
 import mongoose from 'mongoose';
+import fs from 'fs/promises';
 import { errorHandler } from "../middleware/ErrorsHandlers/errorHandler.js";
 import { logger } from "../utils/utils.js";
 
@@ -198,31 +199,36 @@ const addDocuments = async (req, res, next) => {
     try {
         const userId = req.params.uid;
         const { name } = req.body;
-        const files = req.files; // Archivos subidos
+        const files = req.files; 
         const updates = [];
 
         req.logger.debug(`> USERS Controller: Add Documents to user ${userId}...`);
 
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             req.logger.debug(`> USERS Controller: Invalid User ID: ${userId}`);
+            await removeUploadedFiles(files); 
             CustomError.createError("User ID Error", ERROR_MESSAGES.USER.INVALID_ID, { userId }, ERROR_TYPES.TIPO_DE_DATOS);
+
         }
 
         const user = await usersService.getUserById(userId);
 
         if (!user) {
             req.logger.debug(`> USERS Controller: User not found: ${userId}`);
+            await removeUploadedFiles(files); 
             CustomError.createError("User Not Found", ERROR_MESSAGES.USER.USER_NOT_FOUND, { userId }, ERROR_TYPES.NOT_FOUND);
         }
 
         //     if (!files || Object.keys(files).length === 0) {
-        if (!files || files.length === 0) {
+        if (!files || files.length === 0 || Object.keys(files).length === 0) {
+
             req.logger.debug("> USERS Controller: No files uploaded.");
             CustomError.createError("File Upload Error", ERROR_MESSAGES.USER.FILE_NOT_FOUND, { userId }, ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
         if (!name || name.trim() === "") {
             req.logger.debug("> USERS Controller: 'name' field is missing.");
+            await removeUploadedFiles(files); 
             CustomError.createError("Missing Name Field", "The 'name' field is required.", { userId }, ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
@@ -244,15 +250,25 @@ const addDocuments = async (req, res, next) => {
         await user.save();
 
         req.logger.debug(`> USERS Controller: Documents added successfully to user ${userId}.`);
-        console.log('Files uploaded:', req.files);
-        console.log("userId", userId);
-        console.log("updates", updates);
-        console.log("name", name);
+        //console.log('Files uploaded:', req.files);
+        //console.log("userId", userId);
+        //console.log("updates", updates);
+        //console.log("name", name);
         res.send({ status: "success", payload: user.documents });
     } catch (error) {
+        await removeUploadedFiles(req.files); 
         next(error);
     }
 }
+
+const removeUploadedFiles = async (files) => {
+    if (!files) return;
+    try {
+        await Promise.all( Object.values(files).flat().map(file => fs.unlink(file.path))  );
+    } catch (err) {
+        //console.error("Error deleting files:", err);       
+    }
+};
 
 export default {
     deleteUser,

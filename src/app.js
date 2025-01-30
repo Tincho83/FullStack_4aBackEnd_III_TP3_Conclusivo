@@ -33,7 +33,7 @@ const swaggerOptions = {
         openapi: "3.0.1",
         info: {
             title: "Documentacion API / AdoptMe",
-            version: "1.0.0",
+            version: "1.4.0",
             description: "API de documentacion para el sistema de Adopcion de Mascotas."
         },
         servers: [

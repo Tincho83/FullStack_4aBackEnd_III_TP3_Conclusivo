@@ -74,7 +74,7 @@ paths:
                     $ref: '#components/schemas/Adoption'
               examples:
                 success:
-                  summary: Ejemplo exitoso
+                  summary: Ejemplo correcto
                   value:
                     status: success
                     payload:
@@ -83,7 +83,7 @@ paths:
                       pet: "675cbe964e7fcc2c7dcb90d3"
                       __v: 0                        
         "400":
-          description: ID Pet invalido.
+          description: ID Adopcion invalido.
           content:
             application/json:
               examples:
@@ -105,13 +105,13 @@ paths:
   /api/adoptions/{uid}/{pid}:
     #Post:ok.20250125 
     post:
-      summary: Registra una nueva adopcion entre un usuario (ID Usuarios) y una mascota (ID Mascota).
-      description: Registra una nueva adopcion entre un usuario (ID Usuarios) y una mascota (ID Mascota).
+      summary: Registra una nueva adopcion entre un usuario (ID Usuario) y una mascota (ID Mascota).
+      description: Registra una nueva adopcion entre un usuario (ID Usuario) y una mascota (ID Mascota).
       tags:
         - Adoptions
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       parameters:
         - name: uid
           in: path
@@ -157,7 +157,7 @@ paths:
                   summary: Ejemplo correcto
                   value:
                     status: success
-                    message: pet adopted
+                    message: Pet adopted
 
         "400":
           description: ID User/Pet invalido.
@@ -187,5 +187,3 @@ paths:
                   value:
                     status: error
                     error: Internal Server Error
-
-

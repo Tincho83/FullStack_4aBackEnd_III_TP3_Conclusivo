@@ -15,8 +15,6 @@ const storage = multer.diskStorage({
             folder = `${__dirname}/../public/img`;
         }
 
-        console.log(`Saving file to folder: ${folder}`);
-
         if (!fs.existsSync(folder)) {
             fs.mkdirSync(folder, { recursive: true });
         }

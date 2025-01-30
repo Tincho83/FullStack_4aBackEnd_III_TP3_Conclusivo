@@ -10,7 +10,8 @@ export const ERROR_MESSAGES = {
         USER_ALREADY_EXISTS: "The user already exists.***",
         INVALID_ID: "Invalid ID User.***",
         MISSING_FIELDS: "Fields need to be completed.***",
-        USER_NOT_FOUND: "User not found.***"
+        USER_NOT_FOUND: "User not found.***",
+        FILE_NOT_FOUND: "File not found.***"
     },
     PET: {
         PET_NOT_FOUND: "Pet not found.***",

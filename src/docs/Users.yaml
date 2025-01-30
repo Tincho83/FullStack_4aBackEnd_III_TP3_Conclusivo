@@ -58,8 +58,8 @@ paths:
       tags:
         - Users
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -219,8 +219,8 @@ paths:
       tags:
         - Users
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       parameters:
         - name: uid
           in: path
@@ -295,8 +295,8 @@ paths:
       tags:
         - Users
       security:
-        - basicAuth: []
-        - bearerAuth: []
+      #  - basicAuth: []
+      #  - bearerAuth: []
       parameters:
         - name: uid
           in: path
@@ -358,3 +358,102 @@ paths:
                     status: error
                     error: Internal Server Error
 
+   #Route:/api/users/{uid}/documents:??.20250125
+  /api/users/{uid}/documents:
+
+    post:
+      summary: Agrega documentos e imagenes a un usuario registrado.
+      description: Permite subir documentos e imagenes asociados a un usuario en la base de datos.
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario al que se le agregaran los documentos.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre del documento.
+                  example: "DNI"
+                documents:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Archivos de documentos a subir (máx. 10).
+                image:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Imágenes a subir (máx. 10).
+      responses:
+        "200":
+          description: Documentos e imágenes agregados exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: array
+                    description: Lista de documentos agregados.
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: Nombre del documento.
+                          example: "DNI"
+                        reference:
+                          type: string
+                          description: Ruta del documento almacenado.
+                          example: "http://www.dominio.com/doc/img003.pdf"
+        "400":
+          description: Error en la solicitud (ID inválido, archivos faltantes o campo 'name' vacío).
+          content:
+            application/json:
+              examples:
+                invalid_id:
+                  summary: Ejemplo erroneo
+                  value:
+                    error: "User ID Error: Invalid ID User."
+                no_files:
+                  summary: No se subieron archivos
+                  value:
+                    error: "File Upload Error: No files uploaded."
+                missing_name:
+                  summary: Falta el campo 'name'
+                  value:
+                    error: "Missing Name Field: The 'name' field is required."
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo erroneo
+                  value:
+                    error: "User Not Found: User not found."
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Error interno
+                  value:
+                    status: error
+                    error: Internal Server Error    
