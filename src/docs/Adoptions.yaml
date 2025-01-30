@@ -2,7 +2,6 @@ paths:
 
   #Route:/api/adoptions/:ok.20250125
   /api/adoptions:
-
     #Get:Ok.20250125
     get:
       summary: Obtiene todas las adopciones registradas.
@@ -26,7 +25,6 @@ paths:
                     description: Datos obtenidos.
                     items:
                       type: object
-                      description: Objeto de adopción.
                       $ref: '#components/schemas/Adoption'
               examples:
                 success:
@@ -41,7 +39,6 @@ paths:
 
   #Route:/api/adoptions/{aid}:ok.20250125  
   /api/adoptions/{aid}:
-
     #Get:ok.20250125
     get:
       summary: Obtiene la adopcion registrada mediante el ID.
@@ -106,7 +103,6 @@ paths:
 
   #Route:/api/adoptions/{uid}/{pid}:ok.20250125
   /api/adoptions/{uid}/{pid}:
-
     #Post:ok.20250125 
     post:
       summary: Registra una nueva adopcion entre un usuario (ID Usuarios) y una mascota (ID Mascota).

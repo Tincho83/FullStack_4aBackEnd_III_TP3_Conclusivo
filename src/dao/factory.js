@@ -1,5 +1,5 @@
 import { config } from '../config/config.js';
-import { ConnDBMongoDBSingleton as ConnectDB } from './Singleton/ConnDBMongoDBSingleton.js';
+import { ConnDBMongoDBSingleton as ConnectDB } from './singleton/ConnDBMongoDBSingleton.js';
 
 let DAO;
 

@@ -70,6 +70,8 @@ const login = async (req, res, next) => {
             CustomError.createError("Login User Error", ERROR_MESSAGES.SESSION.INVALID_CRED, errorArgsUser(req.body), ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
+        await usersService.update(user._id, { last_connection: new Date() });
+
         const userDto = UserDTO.getUserTokenFrom(user);
         req.logger.debug(`${JSON.stringify(userDto, null, 5)}`);
 
@@ -82,6 +84,28 @@ const login = async (req, res, next) => {
         return next(error);
     }
 }
+
+const logout = async (req, res, next) => {
+    try {
+        const cookie = req.cookies['coderCookie'];
+        if (!cookie) {
+            return res.status(401).send({ status: "error", message: "No active session" });
+        }
+
+        const usert = jwt.verify(cookie, 'tokenSecretJWT');
+        if (!usert) {
+            return res.status(401).send({ status: "error", message: "Invalid session" });
+        }
+
+        const user = await usersService.getUserByEmail(usert.email);
+
+        await usersService.update(user._id, { last_connection: new Date() });
+
+        res.clearCookie('coderCookie').send({ status: "success", message: "Logged out successfully" });
+    } catch (error) {
+        return next(error);
+    }
+};
 
 const current = async (req, res, next) => {
     try {
@@ -159,6 +183,7 @@ const unprotectedCurrent = async (req, res, next) => {
 export default {
     current,
     login,
+    logout,
     register,
     current,
     unprotectedLogin,

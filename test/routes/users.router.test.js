@@ -8,6 +8,7 @@ await mongoose.connect("mongodb+srv://tincho83:Codin33Codin33@cluster0.hhucv.mon
 
 const requester = supertest("http://localhost:8080");
 
+// npx mocha .\test\routes\users.router.test.js --exit
 let UserID_NotFound = "67650536b416987388f08065";
 let UserID_InvalidID = "67650536b416987388f080655";
 
@@ -81,7 +82,7 @@ describe(">>> Pruebas: A.Router Users: Get", async function () {
         expect(status).to.be.eq(200);
     });
 
-    it("* Router Users / Metodo GET: 2.Devuelve codigo de estado diferente a 200?", async () => {
+    it("* Router Users / Metodo GET: 2. No Devuelve codigo de estado diferente a 200?", async () => {
         let { status } = await requester.get("/api/users");
 
         expect(status).to.equal(200, "Se esperaba un código de estado 200, pero se recibió " + status);
@@ -247,7 +248,7 @@ describe(">>> Pruebas: A.Router Users: Get", async function () {
 
     });
 
-    it("* Router Users / Metodo GET con UserID: 11.Devuelve codigo de estado diferente a 200?", async () => {
+    it("* Router Users / Metodo GET con UserID: 11.No Devuelve codigo de estado diferente a 200?", async () => {
 
         let usertest = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
         const userId = usertest._id.toString();
@@ -455,7 +456,7 @@ describe(">>> Pruebas: A.Router Users: Get", async function () {
 
     });
 
-    it("* Router Users / Metodo GET con UserID (No Registrado): 20.Devuelve codigo de estado diferente a 404?", async () => {
+    it("* Router Users / Metodo GET con UserID (No Registrado): 20.No Devuelve codigo de estado diferente a 404?", async () => {
 
         const userId = UserID_NotFound;
 
@@ -493,7 +494,7 @@ describe(">>> Pruebas: A.Router Users: Get", async function () {
 
     });
 
-    it("* Router Users / Metodo GET con UserID (Incorrecto): 23.Devuelve codigo de estado diferente a 400?", async () => {
+    it("* Router Users / Metodo GET con UserID (Incorrecto): 23.No Devuelve codigo de estado diferente a 400?", async () => {
 
         const userId = UserID_InvalidID;
 

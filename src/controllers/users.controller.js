@@ -194,11 +194,71 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
+const addDocuments = async (req, res, next) => {
+    try {
+        const userId = req.params.uid;
+        const { name } = req.body;
+        const files = req.files; // Archivos subidos
+        const updates = [];
+
+        req.logger.debug(`> USERS Controller: Add Documents to user ${userId}...`);
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            req.logger.debug(`> USERS Controller: Invalid User ID: ${userId}`);
+            CustomError.createError("User ID Error", ERROR_MESSAGES.USER.INVALID_ID, { userId }, ERROR_TYPES.TIPO_DE_DATOS);
+        }
+
+        const user = await usersService.getUserById(userId);
+
+        if (!user) {
+            req.logger.debug(`> USERS Controller: User not found: ${userId}`);
+            CustomError.createError("User Not Found", ERROR_MESSAGES.USER.USER_NOT_FOUND, { userId }, ERROR_TYPES.NOT_FOUND);
+        }
+
+        //     if (!files || Object.keys(files).length === 0) {
+        if (!files || files.length === 0) {
+            req.logger.debug("> USERS Controller: No files uploaded.");
+            CustomError.createError("File Upload Error", ERROR_MESSAGES.USER.FILE_NOT_FOUND, { userId }, ERROR_TYPES.ARGUMENTOS_INVALIDOS);
+        }
+
+        if (!name || name.trim() === "") {
+            req.logger.debug("> USERS Controller: 'name' field is missing.");
+            CustomError.createError("Missing Name Field", "The 'name' field is required.", { userId }, ERROR_TYPES.ARGUMENTOS_INVALIDOS);
+        }
+
+
+
+        // Procesar los archivos subidos
+        Object.keys(files).forEach(fieldName => {
+            files[fieldName].forEach(file => {
+                updates.push({
+                    name: name,
+                    //fileName: file.originalname,
+                    reference: file.path,
+                });
+            });
+        });
+
+        // Actualizar el usuario en la base de datos
+        user.documents.push(...updates);
+        await user.save();
+
+        req.logger.debug(`> USERS Controller: Documents added successfully to user ${userId}.`);
+        console.log('Files uploaded:', req.files);
+        console.log("userId", userId);
+        console.log("updates", updates);
+        console.log("name", name);
+        res.send({ status: "success", payload: user.documents });
+    } catch (error) {
+        next(error);
+    }
+}
 
 export default {
     deleteUser,
     addUser,
     getAllUsers,
     getUser,
-    updateUser
+    updateUser,
+    addDocuments
 }

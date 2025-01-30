@@ -6,6 +6,7 @@ const router = Router();
 
 router.post('/register', routerSESSIONS, sessionsController.register);
 router.post('/login', routerSESSIONS, sessionsController.login);
+router.post('/logout', routerSESSIONS, sessionsController.logout);
 router.get('/current', routerSESSIONS, sessionsController.current);
 router.get('/unprotectedLogin', routerSESSIONS, sessionsController.unprotectedLogin);
 router.get('/unprotectedCurrent', routerSESSIONS, sessionsController.unprotectedCurrent);
