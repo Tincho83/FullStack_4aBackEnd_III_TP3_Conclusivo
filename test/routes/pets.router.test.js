@@ -17,28 +17,25 @@ describe(">>> Pruebas: A.Router Pets: Get", async function () {
     this.timeout(7600);
 
     before(async () => {
-        // Acciones antes de iniciar las pruebas:
-        //console.log("Comprobando test@test.com");
+
         let existe = await mongoose.connection.collection("pets").findOne({ name: "Tino" })
         if (!existe) {
-            //console.log("Registrando test@test.com");
             await mongoose.connection.collection("pets").insertOne({
                 name: "Tino",
                 specie: "Morsa",
                 birthDate: new Date().toUTCString(),
             })
         } else {
-            //console.log("Ya existe test@test.com");
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => {
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it
+    afterEach(async () => { 
     });
 
-    after(async () => { // Acciones despues de todas las pruebas 
+    after(async () => {
 
     });
 
@@ -211,7 +208,7 @@ describe(">>> Pruebas: A.Router Pets: Get", async function () {
         expect(payload[0]).to.have.property("name").that.is.a("string").and.is.not.empty;
         expect(payload[0]).to.have.property("specie").that.is.a("string").and.is.not.empty;
         expect(payload[0]).to.have.property("birthDate").that.is.a("string").and.is.not.empty;
-        //expect(payload[0]).to.have.property("birthDate").that.is.a("string").and.includes("T");
+        
     });
 
 
@@ -432,8 +429,7 @@ describe(">>> Pruebas: A.Router Pets: Get", async function () {
         expect(payload).to.have.property("name").that.is.a("string").and.is.not.empty;
         expect(payload).to.have.property("specie").that.is.a("string").and.is.not.empty;
         expect(payload).to.have.property("birthDate").that.is.a("string").and.is.not.empty;
-        //expect(payload).to.have.property("birthDate").that.is.a("string").and.includes("T");
-
+        
     });
 
 
@@ -538,13 +534,13 @@ describe(">>> Pruebas: B.Router Pets: Put", async function () {
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it        
+    afterEach(async () => {      
     });
 
-    after(async () => { // Acciones despues de todas las pruebas   
+    after(async () => {   
 
     });
 
@@ -659,13 +655,13 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it        
+    afterEach(async () => {        
     });
 
-    after(async () => { // Acciones despues de todas las pruebas        
+    after(async () => {  
     });
 
     let pathImg = "./test/routes/image.jpg";
@@ -861,8 +857,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
         expect(payload).to.have.property("name").that.is.a("string").and.is.not.empty;
         expect(payload).to.have.property("specie").that.is.a("string").and.is.not.empty;
         expect(payload).to.have.property("birthDate").that.is.a("string").and.is.not.empty;
-        //expect(payload).to.have.property("birthDate").that.is.a("string").and.includes("T");        
-
+        
     });
 
     it("* Router Pets / Metodo POST: 10.Registra una mascota 'Dini' y provoca error 400 con campo no valido (namme)?", async () => {
@@ -1125,7 +1120,7 @@ describe(">>> Pruebas: C.Router Pets: Post", async function () {
         expect(payload).to.have.property("name").that.is.a("string").and.is.not.empty;
         expect(payload).to.have.property("specie").that.is.a("string").and.is.not.empty;
         expect(payload).to.have.property("birthDate").that.is.a("string").and.is.not.empty;
-        //expect(payload).to.have.property("birthDate").that.is.a("string").and.includes("T");        
+        
 
     });
 
@@ -1171,14 +1166,14 @@ describe(">>> Pruebas: D.Router Pets: Delete", async function () {
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it        
+    afterEach(async () => {         
     });
 
-    after(async () => { // Acciones despues de todas las pruebas        
-        //await mongoose.disconnect(); // Cierra la conexión a MongoDB 
+    after(async () => {        
+       
     });
 
     it("* Router Pets / Metodo DELETE con PetID: 1.Borro mascota 'Tino' y devuelve codigo de estado 200?", async () => {

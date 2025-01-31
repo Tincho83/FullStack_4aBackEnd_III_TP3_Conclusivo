@@ -17,11 +17,8 @@ describe(">>> Pruebas: A.Router Users: Get", async function () {
     this.timeout(7600);
 
     before(async () => {
-        // Acciones antes de iniciar las pruebas:
-        //console.log("Comprobando test@test.com");
         let existe = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
         if (!existe) {
-            //console.log("Registrando test@test.com");
             await mongoose.connection.collection("users").insertOne({
                 first_name: "test",
                 last_name: "test",
@@ -29,51 +26,16 @@ describe(">>> Pruebas: A.Router Users: Get", async function () {
                 password: "$2b$Coder123"
             })
         } else {
-            //console.log("Ya existe test@test.com");
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it
+    afterEach(async () => { 
     });
 
-    after(async () => { // Acciones despues de todas las pruebas        
-    });
-
-    it("* 0.Router Users / Metodo GET: Devuelve un array de usuarios? (Valida: En Codigo de Status: sea igual a 200, En Body: que exista la propiedad status y sea igual a success, que exista la propiedad payload, que sea un array y que contenga por lo menos un registro)", async () => {
-        let { status, body } = await requester.get("/api/users");
-
-        //console.log(status);
-        expect(status).to.be.eq(200)
-
-        //console.log(body);
-
-        //console.log(body.status);
-        //expect(body.status).to.be.ok
-        //expect(body.status).to.exist
-        //expect(body.status).to.be.eq("success")
-        expect(body).to.have.property("status", "success");
-
-        //console.log(body.payload);
-        //expect(body.payload).to.exist
-        expect(body).to.have.property("payload");
-
-        const payload = body.payload;
-        expect(Array.isArray(body.payload)).to.be.true
-        expect(payload.length).to.be.greaterThan(0);
-
-        //console.log(payload[0]);
-        expect(payload[0]).to.have.property("first_name").that.is.a("string").and.is.not.empty;
-        expect(payload[0]).to.have.property("last_name").that.is.a("string").and.is.not.empty;
-        expect(payload[0]).to.have.property("email").that.is.a("string").and.includes("@");
-        expect(payload[0]).to.have.property("password").that.is.a("string").and.is.not.empty;
-
-        // Verifica que el _id sea un ObjectId válido
-        expect(payload[0]).to.have.property("_id");
-        expect(isValidObjectId(payload[0]._id)).to.be.true;
-
+    after(async () => {     
     });
 
     it("* Router Users / Metodo GET: 1.Devuelve codigo de estado 200?", async () => {
@@ -544,13 +506,13 @@ describe(">>> Pruebas: B.Router Users: Put", async function () {
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it        
+    afterEach(async () => {        
     });
 
-    after(async () => { // Acciones despues de todas las pruebas        
+    after(async () => {        
     });
 
     it("* Router Users / Metodo PUT con UserID: 1.Actualiza datos del usuario 'test@test.com'?", async () => {
@@ -651,14 +613,14 @@ describe(">>> Pruebas: C.Router Users: Delete", async function () {
         }
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it        
+    afterEach(async () => {       
     });
 
-    after(async () => { // Acciones despues de todas las pruebas        
-        // await mongoose.disconnect(); // Cierra la conexión a MongoDB
+    after(async () => {        
+        // await mongoose.disconnect();
     });
 
     it("* Router Users / Metodo DELETE con UserID: 1.Borro usuario 'test@test.com' y devuelve codigo de estado 200?", async () => {

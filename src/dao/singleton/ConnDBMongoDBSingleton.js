@@ -19,7 +19,6 @@ export class ConnDBMongoDBSingleton {
         mongoose.set('strictQuery', false); // default mongoose > v7, mongoose.set('strictQuery', true);  default mongoose < v6
 
         try {
-            // Si ya existe una conexion, la retornamos
             if (this.#conexion) {
                 console.log(`Conexión con la base de datos "${this.#conexion.db}" establecida previamente...`);
                 return this.#conexion;

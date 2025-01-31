@@ -219,7 +219,6 @@ const addDocuments = async (req, res, next) => {
             CustomError.createError("User Not Found", ERROR_MESSAGES.USER.USER_NOT_FOUND, { userId }, ERROR_TYPES.NOT_FOUND);
         }
 
-        //     if (!files || Object.keys(files).length === 0) {
         if (!files || files.length === 0 || Object.keys(files).length === 0) {
 
             req.logger.debug("> USERS Controller: No files uploaded.");
@@ -234,7 +233,6 @@ const addDocuments = async (req, res, next) => {
 
 
 
-        // Procesar los archivos subidos
         Object.keys(files).forEach(fieldName => {
             files[fieldName].forEach(file => {
                 updates.push({
@@ -245,15 +243,11 @@ const addDocuments = async (req, res, next) => {
             });
         });
 
-        // Actualizar el usuario en la base de datos
         user.documents.push(...updates);
         await user.save();
 
         req.logger.debug(`> USERS Controller: Documents added successfully to user ${userId}.`);
-        //console.log('Files uploaded:', req.files);
-        //console.log("userId", userId);
-        //console.log("updates", updates);
-        //console.log("name", name);
+
         res.send({ status: "success", payload: user.documents });
     } catch (error) {
         await removeUploadedFiles(req.files); 

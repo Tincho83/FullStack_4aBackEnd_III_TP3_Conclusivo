@@ -110,8 +110,6 @@ let logonServer = envvariab.LOGONSERVER ? `\\\\${envvariab.LOGONSERVER.replace(/
 let username = envvariab.USERNAME || 'No disponible';
 let horahhmmss = moment().format('DD/MM/yyyy hh:mm:ss A');
 
-// Documentacion PostMan: https://documenter.getpostman.com/view/39556398/2sAYQgfnNc#3fa07c7d-4cfb-4584-8b35-fc8377f9365d
-
 app.listen(PORT, () => {
     console.log(`
 ******************************************************************************

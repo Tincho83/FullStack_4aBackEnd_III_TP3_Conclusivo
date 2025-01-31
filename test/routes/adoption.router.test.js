@@ -46,12 +46,12 @@ describe(">>> Pruebas: A.Router Adoptions: Post", async function () {
 
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it 
+    afterEach(async () => { 
 
-        // Blanqueo usuarios de prueba
+        
         let pettest = await mongoose.connection.collection("pets").findOne({ name: "Tino" })
         const petId = pettest._id.toString();
         let putPet = { name: "Tino", specie: "Morsa", birthDate: new Date().toUTCString(), adopted: false };
@@ -65,11 +65,11 @@ describe(">>> Pruebas: A.Router Adoptions: Post", async function () {
 
     });
 
-    after(async () => { // Acciones despues de todas las pruebas
+    after(async () => { 
         let usertest = await mongoose.connection.collection("users").findOne({ email: "test@test.com" })
         const userId = usertest._id.toString();
         await mongoose.connection.collection("adoptions").deleteMany({ owner: mongoose.Types.ObjectId(userId) });
-        //await mongoose.disconnect(); // Cierra la conexión a MongoDB 
+        
     });
 
 
@@ -413,10 +413,10 @@ describe(">>> Pruebas: B.Router Adoptions: Get", async function () {
 
     });
 
-    beforeEach(async () => { // Acciones antes de cada prueba it
+    beforeEach(async () => { 
     });
 
-    afterEach(async () => { // Acciones despues de cada prueba it
+    afterEach(async () => { 
         let pettest = await mongoose.connection.collection("pets").findOne({ name: "Tino" })
         const petId = pettest._id.toString();
         let putPet = { name: "Tino", specie: "Morsa", birthDate: new Date().toUTCString(), adopted: false };
@@ -428,7 +428,7 @@ describe(">>> Pruebas: B.Router Adoptions: Get", async function () {
         let procu = await requester.put(`/api/users/${userId}`).send(putUser)
     });
 
-    after(async () => { // Acciones despues de todas las pruebas 
+    after(async () => { 
 
         //await mongoose.connection.collection("users").deleteMany({ email: "test@test.com" });
         //await mongoose.connection.collection("pets").deleteMany({ name: "Tino" });
@@ -441,8 +441,6 @@ describe(">>> Pruebas: B.Router Adoptions: Get", async function () {
 
         let stat = await requester.delete(`/api/pets/${adoptionId}`);
         
-
-        //await mongoose.disconnect(); // Cierra la conexión a MongoDB   
     });
 
     this.timeout(7600);

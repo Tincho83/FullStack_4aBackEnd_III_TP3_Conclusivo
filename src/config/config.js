@@ -2,18 +2,11 @@ import dotenv from 'dotenv';
 import { Command, Option } from 'commander';
 import colors from 'colors';
 
-
-
-
 console.time(`\x1b[34mTiempo de Carga de Configuracion\x1b[0m`);
 console.log(`
 
 > Iniciando App...
 >  Cargando Configuracion...`.blue);
-
-
-
-
 
 const appProgram = new Command();
 
@@ -26,10 +19,7 @@ const { mode, debug } = appProgram.opts();
 let options = appProgram.opts();
 //console.log(`>    Obteniendo argumentos de inicio: ${JSON.stringify(options)}`.blue);
 
-dotenv.config({
-    path: mode === "prod" ? "./src/.env.prod" : "./src/.env.dev",
-    override: true
-})
+dotenv.config({ path: mode === "prod" ? "./src/.env.prod" : "./src/.env.dev", override: true })
 
 export const config = {
     PORT: process.env.PORT || 8080,
