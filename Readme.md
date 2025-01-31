@@ -101,4 +101,4 @@ Aplicativo Backend para un sistema de adopcion de mascotas realizado en javascri
 
 
 ### Contacto
-[![N|Solid](/src/public/img/linkedin.png)](https://www.linkedin.com/in/martin-hernandez-9b7154215)
+https://www.linkedin.com/in/martin-hernandez-9b7154215
