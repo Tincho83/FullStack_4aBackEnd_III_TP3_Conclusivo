@@ -1,4 +1,4 @@
-![image](/src/public/img/demo.PNG)
+![image](/test/routes/image.jpg)
 # BackEnd III - Entrega TP Conclusivo 
 ## _Servidor con endpoints y servicios para gestionar los usuarios y mascotas para un sistema de adopcion._  
   
