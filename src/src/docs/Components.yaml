@@ -1,0 +1,319 @@
+components:
+
+  schemas:
+
+    #Schema:Pet:ok.20250125
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id unico de la mascota autogenerado por MongoDB
+          example: "675ce371995b6f225a0df6d2"
+        name:
+          type: string
+          description: Nombre de la Mascota
+          example: "Pipi"
+        specie:
+          type: string
+          description: Especie de la mascota
+          example: "Perro"
+        birthDate:
+          type: datetime
+          description: Fecha de Nacimiento de la mascota (YYYY-MM-DD)
+          example: "2024-01-02T17:27:25.192+00:00"
+        adopted: 
+          type: bool
+          description: Si la Mascota fue adoptada True "Si" / False "No"
+          example: "false"
+        owner:  
+          type: ObjectId
+          description: Id MongoDB del usuario que adopto la mascota
+          example: "675ce371995b6f225a0df6d2"
+        image:  
+          type: string
+          description: Ruta de imagen de la mascota
+          example: "http://www.dominio.com/img/img03.png"
+        createdAt:  
+          type: datetime
+          description: Fecha de creacion del registro de la mascota en MongoDB
+          example: "2024-01-02T17:27:25.192+00:00"
+        updatedAt:  
+          type: datetime
+          description: Fecha de ultima modificacion del registro de la mascota en MongoDB
+          example: "2024-01-02T17:27:25.192+00:00"
+        __v:  
+          type: number
+          description: Valor asignado por MongoDB
+          example: 0
+      example:
+        _id: ObjectId("67650536b416987388f08068")
+        name: Pepipe
+        specie: Paloma
+        birthDate: 2024-01-02T17:27:25.192+00:00
+        adopted: false
+        owner: null
+        image: https://picsum.photos/seed/SByq6wUW/250/3761.jpg
+        createdAt:  2024-12-20T05:48:38.478+00:00
+        updatedAt:  2024-12-20T21:45:53.305+00:00
+        __v:  0
+
+    #Schema:Sesions:ok.20250125        
+    Session:
+      type: object
+      description: Datos obtenidos del usuario logeado.
+      properties:
+        name:
+          type: string
+          description: Nombre del usuario
+          example: Diego
+        role:
+          type: string
+          description: Rol del usuario
+          example: User
+        email:
+          type: string
+          description: Email del usuario
+          example: prueba@dominio.com
+        iat:
+          type: number
+          description: Registro
+          example: 1234567890
+        ext:
+          type: number
+          description: Expiracion
+          example: 1234568997
+
+
+    #Schema:Adoption:ok.20250125
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id unico de la adopcion autogenerado por MongoDB.
+        owner:
+          type: ObjectId
+          description: Id unico del usuario que realizo la adopcion.
+        pet:
+          type: ObjectId
+          description: ID unico de la mascota adoptada.
+        __v:  
+          type: number
+          description: Valor asignado por MongoDB
+      example:
+        _id: ObjectId("67650536b416987388f08068")
+        owner: ObjectId("67650536b416987089f08068")
+        pet: ObjectId("67650536b416987289f08068")
+        __v:  0
+    
+    #Schema:User:Ok.20250125
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID unico del usuario autogenerado por MongoDB.
+          example: "675ce371995b6f225a0df6d2"
+        first_name:
+          type: string
+          description: Nombre del usuario.
+          example: "Pepe"
+        last_name:
+          type: string
+          description: Apellido del usuario.
+          example: "MHernndindiz"
+        email:
+          type: string
+          description: Correo electrónico del usuario.
+          example: "mhh@test.com"
+        password:
+          type: string
+          description: Contraseña del usuario.
+          example: "abcd123"
+        role:
+          type: string
+          description: Rol del usuario (user/admin).
+          example: "user"
+        pets:
+          type: array
+          description: Lista de mascotas asociadas al usuario.
+          items:
+            type: object
+            properties:
+              _id:
+                type: ObjectId
+                description: ID único de la mascota.
+                example: "675cbe964e7fcc2c7dcb90d3"
+        documents:
+          type: array
+          description: Documentacion del Usuario.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Nombre del Documento.
+                example: "DNI"
+              reference:  
+                type: string
+                description: Enlace del Documento.
+                example: "http://www.dominio.com/doc/img003.pdf"
+        last_connection:
+          type: date-time
+          description: Ultimo inicio de sesion del usuario.
+        createdAt:
+          type: string
+          format: datetime
+          description: Fecha de creación del usuario.
+          example: "2024-12-14T01:46:25.256Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: Fecha de última actualización del usuario.
+          example: "2025-01-21T20:53:28.488Z"
+        __v:
+          type: integer
+          description: Versión del documento.
+          example: 0
+
+  #requestBodies:PorEsquema:ok.20250125
+  requestBodies:
+
+    #requestBodies:AddUser:Ok.20250125
+    AddUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del Usuario
+        last_name:
+          type: string
+          description: Apellido del Usuario
+        email:
+          type: string
+          description: Correo Electronico del usuario
+        password:
+          type: string
+          description: Contraseña del usuario para este sistema
+      required:
+        - first_name
+        - last_name
+        - email
+        - password
+      example:
+        first_name: Pepe
+        last_name: Paloma
+        email: marcos.mandio@test.com
+        password: Abc123DEF456H7$
+
+    #requestBodies:UpdateUser:Ok.20250125
+    UpdateUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del Usuario
+        last_name:
+          type: string
+          description: Apellido del Usuario
+        password:
+          type: string
+          description: Contraseña del usuario para este sistema
+      example:
+        first_name: Pepe
+        last_name: Paloma
+        password: Abc123DEF456H7$
+
+    #requestBodies:AddandUpdatePet:Ok.20250125
+    AddandUpdatePet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de Mascota
+        specie:
+          type: string
+          description: Especie
+        birthDate:
+          type: date
+          description: Fecha de nacimiento de la mascota
+      example:
+        name: Pepe
+        specie: Paloma
+        birthDate: 2022-01-02T17:27:25.192Z
+
+  #requestBodies:AddPetwithImage:Ok.20250125
+    AddPetwithImage:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de Mascota
+        specie:
+          type: string
+          description: Especie
+        birthDate:
+          type: date
+          description: Fecha de nacimiento de la mascota
+        image:
+          type: string
+          description: Ruta de acceso a la imagen de la mascota
+      example:
+        name: Pepe
+        specie: Paloma
+        birthDate: 2022-01-02T17:27:25.192Z
+        Image: "http://www.dominio.com/img/image04.png"
+
+  #requestBodies:AddPetwithImageDos:Ok.20250125
+    AddPetwithImageDos:        
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de la mascota.
+        specie:
+          type: string
+          description: Especie de la mascota.
+        birthDate:
+          type: date
+          format: date
+          description: Fecha de nacimiento de la mascota.
+        image:
+          type: string
+          description: Imagen de la mascota (archivo).
+          format: binary
+      example:
+        name: Pepe
+        specie: Paloma
+        birthDate: 2022-01-02T17:27:25.192Z
+        Image: "http://www.dominio.com/img/image04.png"
+
+  #requestBodies:LoginUser:ok.20250125
+    LoginUser:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Correo electrónico del usuario (h@h.com)
+        password:
+          type: string
+          description: Contraseña del usuario (Coder123)
+      required:
+        - email
+        - password    
+
+  #securitySchemes:PorModulo:ok.20250125
+  securitySchemes:
+    basicAuth:     # <-- arbitrary name for the security scheme
+      type: http
+      scheme: basic
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purpose
+
+#security:Para securizar de manera Global:ok.20250125
+#security:
+#  - basicAuth: []
+#  - bearerAuth: []

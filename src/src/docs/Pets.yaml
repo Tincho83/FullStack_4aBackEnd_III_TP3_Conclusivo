@@ -1,0 +1,399 @@
+paths:
+
+  #Route:/api/pets/:ok.20250125
+  /api/pets/:
+    #Get:Ok.20250125
+    get:
+      summary: Obtiene todas las mascotas registradas para la adopcion o que han sido adoptadas.
+      description: Obtiene todas las mascotas registradas para la adopcion o que han sido adoptadas.
+      tags:
+        - Pets
+      responses:
+        "200":
+          description: Las mascotas fueron obtenidas correctamente desde la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:
+                    type: array
+                    description: Datos obtenidos.
+                    items:
+                      type: object
+                      $ref: '#components/schemas/Pet'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                      - _id: "675ce371995b6f225a0df612"
+                        name: "Pipi"
+                        specie: "Perro"
+                        birthDate: "2022-01-01T00:00:00.000Z"
+                        adopted: false
+                        owner:  "675ce371995b6f225a0df6d2 o null"          
+                        image:  "http://www.dominio.com/image03.png"          
+                        createdAt: "2024-01-01T00:00:00.000Z"
+                        updatedAt: "2025-01-01T00:00:00.000Z"
+                        __v: 0
+    #Post:Ok.20250125
+    post:
+      summary: Registra una mascota preparada para la adopcion.
+      description: Registra una mascota preparada para la adopcion.
+      tags:
+        - Pets
+      security:
+      #  - basicAuth: []
+      #  - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/AddandUpdatePet'
+      responses:
+        "200":
+          description: Mascota Registrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado del proceso (success/error).
+                    example: success
+                  payload:
+                    $ref: '#components/schemas/Pet'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                        _id: "675ce371995b6f225a0df6d2"
+                        name: "Pepe"
+                        specie: "Perro"
+                        birthDate: "2022-01-01T00:00:00.000Z"
+                        adopted: false
+                        owner:  "675ce371995b6f225a0df6d2 o null"          
+                        image:  "http://www.dominio.com/image03.png"          
+                        createdAt: "2024-01-01T00:00:00.000Z"
+                        updatedAt: "2025-01-01T00:00:00.000Z"
+                        __v: 0
+                        
+        "400":
+           description: Revisar campos requeridos
+           content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Create Pet Error: Fields need to be completed.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+  #Route:/api/pets/withimage:ok.20250125
+  /api/pets/withimage:
+    #Post:ok.20250125 
+    post:
+      summary: Registra una mascota preparada para la adopcion con una imagen.
+      description: Registra una mascota preparada para la adopcion con una imagen.
+      tags:
+        - Pets
+      security:
+      #  - basicAuth: []
+      #  - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#components/requestBodies/AddPetwithImageDos'
+      responses:
+        "200":
+          description: Mascota Registrada con imagen
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:
+                    $ref: '#components/schemas/Pet'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                        _id: "675ce371995b6f225a0df6d2"
+                        name: "Pepe"
+                        specie: "Perro"
+                        birthDate: "2022-01-01T00:00:00.000Z"
+                        adopted: false
+                        owner:  "675ce371995b6f225a0df6d2 o null"          
+                        image:  "http://www.dominio.com/image03.png"          
+                        createdAt: "2024-01-01T00:00:00.000Z"
+                        updatedAt: "2025-01-01T00:00:00.000Z"
+                        __v: 0
+
+        "400":
+           description: Revisar campos requeridos
+           content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Create Pet Error: Fields need to be completed.*** || pets validation failed: [fieldname]: Cast to [Data Type] failed for value [value] (type [type Data]) at path [Fieldname]"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+  #Route:/api/pets/{pid}:ok.20250125
+  /api/pets/{pid}:
+    #Get:ok.20250125
+    get:
+      summary: Obtiene una mascota (ingresado por ID) registrada para la adopcion o que ha sido adoptada.
+      description: Obtiene una mascota (ingresado por ID) registrada para la adopcion o que ha sido adoptada.
+      tags:
+        - Pets
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID de la mascota que se esta consultando.
+        schema:
+          type: string
+      # - name: Authorization
+      #   in: header
+      #   required: true
+      #   description: Token de autenticación
+      #   schema:
+      #     type: string            
+      responses:
+        "200":
+          description: La mascota (segun el ID (pid) ingresado en path) fue obtenida correctamente desde la DB.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado de la consulta (success/error).
+                    example: success
+                  payload:  
+                    type: object
+                    description: Usuario.                    
+                    $ref: '#components/schemas/Pet'
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    payload:
+                        _id: "675ce371995b6f225a0df6d2"
+                        name: "Pepe"
+                        specie: "Perro"
+                        birthDate: "2022-01-01T00:00:00.000Z"
+                        adopted: false
+                        owner:  "675ce371995b6f225a0df6d2 o null"          
+                        image:  "http://www.dominio.com/image03.png"          
+                        createdAt: "2024-01-01T00:00:00.000Z"
+                        updatedAt: "2025-01-01T00:00:00.000Z"
+                        __v: 0 
+        "400":
+          description: Revisar campos requeridos
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Pet ID Error: Invalid ID Pet.***"
+        "404":
+          description: Mascota no encontrada
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Pet not found: Pet not found.***"
+    #Put:ok.20250125
+    put:
+      summary: Actualiza los detalles de una mascota registrada (ingresado por ID).
+      description: Registra una mascota preparada para la adopcion (ingresado por ID).
+      tags:
+        - Pets
+      security:
+      #  - basicAuth: []
+      #  - bearerAuth: []
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota que se desea actualizar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/AddandUpdatePet'
+      responses:
+        "200":
+          description: Mascota actualizada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se actualizo.
+                    example: pet updated
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: pet updated
+
+        "400":
+          description: Revisar campos requeridos
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Pet ID Error: Invalid ID Pet.*** || Update Pet Error: Fields need to be completed.***"
+
+        "404":
+          description: Mascota no encontrada
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Pet not found: Pet not found.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+    #Delete:Ok.20250125
+    delete:
+      summary: Borra una mascota (ingresado por ID) registrada en la Base de Datos para hacer adopcion.
+      description: Borra una mascota (ingresado por ID) registrada en la Base de Datos para hacer adopcion.
+      tags:
+        - Pets
+      security:
+      #  - basicAuth: []
+      #  - bearerAuth: []
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota que se desea borrar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mascota eliminada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string                    
+                    description: Estado del proceso (success/error).
+                    example: success
+                  message:
+                    type: string                      
+                    description: mensaje indicador que si se borro.
+                    example: pet deleted
+              examples:
+                success:
+                  summary: Ejemplo correcto
+                  value:
+                    status: success
+                    message: pet deleted
+
+        "400":
+          description: Revisar campos requeridos
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Pet ID Error: Invalid ID Pet.***"
+
+        "404":
+          description: La mascota con el ID proporcionado no fue encontrada
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    error: "Pet not found: Pet not found.***"
+
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                error:
+                  summary: Ejemplo de error
+                  value:
+                    status: error
+                    error: Internal Server Error
+
+
+
+

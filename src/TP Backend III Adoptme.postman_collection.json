@@ -1,0 +1,1497 @@
+{
+	"info": {
+		"_postman_id": "a759435f-f929-42ef-af1a-07c467f9eca7",
+		"name": "TP Backend III Adoptme",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39556398"
+	},
+	"item": [
+		{
+			"name": "Dev",
+			"item": [
+				{
+					"name": "Sessions",
+					"item": [
+						{
+							"name": "[Sessions Current GET] http://localhost:8080/api/sessions/current",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/sessions/current",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sessions",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Sessions Login POST] http://localhost:8080/api/sessions/login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"email\": \"m@m.com\", \"password\": \"coder123\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/sessions/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sessions",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Session SignUp POST] http://localhost:8080/api/sessions/register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"first_name\": \"Prueb\", \"last_name\": \"d\", \"email\": \"m@m.com\", \"password\": \"coder123\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/sessions/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sessions",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mocks",
+					"item": [
+						{
+							"name": "[Pets Get Mock Nro] http://localhost:8080/api/mocks/mockingpets?count=2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/mockingpets?count=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"mockingpets"
+									],
+									"query": [
+										{
+											"key": "count",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Get Mock 100] http://localhost:8080/api/mocks/mockingpets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/mockingpets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"mockingpets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Get Mock Nro] http://localhost:8080/api/mocks/mockingusers?count=2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/mockingusers?count=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"mockingusers"
+									],
+									"query": [
+										{
+											"key": "count",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Get Mock 50] http://localhost:8080/api/mocks/mockingusers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/mockingusers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"mockingusers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users 25 & Pets 25 Post] http://localhost:8080/api/mocks/generateData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/generateData",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"generateData"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Nro & Pets Nro Post] http://localhost:8080/api/mocks/generateData?users=2&pets=2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/generateData?users=2&pets=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"generateData"
+									],
+									"query": [
+										{
+											"key": "users",
+											"value": "2"
+										},
+										{
+											"key": "pets",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Nro & Pets Nro Body Post] http://localhost:8080/api/mocks/generateData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"users\": 3, \"pets\": 3 }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/mocks/generateData",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"mocks",
+										"generateData"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Logger",
+					"item": [
+						{
+							"name": "[LoggerTest Get] http://localhost:8080/loggerTest",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/loggerTest",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"loggerTest"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Adoptions",
+					"item": [
+						{
+							"name": "[Adopt Get] http://localhost:8080/api/adoptions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/adoptions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"adoptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Adopt GetBy] http://localhost:8080/api/adoptions/:aid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/adoptions/6765f2cb316e540ecd5ed90d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"adoptions",
+										"6765f2cb316e540ecd5ed90d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Adopt Post] http://localhost:8080/api/adoptions/:uid/:pid",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/adoptions/675ce371995b6f225a0df6d2/6765ed36759fb673ddd5f83d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"adoptions",
+										"675ce371995b6f225a0df6d2",
+										"6765ed36759fb673ddd5f83d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "[Users Post] http://localhost:8080/api/users",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"first_name\":\"Pepe\", \"last_name\":\"Paloma\", \"email\": \"mhssd@test.com\", \"password\": \"abc123\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Get] http://localhost:8080/api/users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users GetBy] http://localhost:8080/api/users/:uid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users/67650536b416987388f08065",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"67650536b416987388f08065"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Put] http://localhost:8080/api/users/:uid",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"first_name\":\"Pepe\", \"last_name\":\"MHernndindddddddddddddddddddddddddddddddddddddddddiz\", \"passsword\": \"abcd123\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/679031e8f154772d8f001253",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"679031e8f154772d8f001253"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Del] http://localhost:8080/api/users/:uid",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users/6766fb5eb4337915c38556b5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"6766fb5eb4337915c38556b5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Post] http://localhost:8080/api/users/:uid/documents",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Martin/Downloads/image.jpg"
+										},
+										{
+											"key": "name",
+											"value": "prueba",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/675ce371995b6f225a0df6d2/documents",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"675ce371995b6f225a0df6d2",
+										"documents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users (Field Docs:Name/Reference) Post] http://localhost:8080/api/users/:uid/documents",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": [
+												"/C:/Users/Martin/Downloads/467182078_1235029514208083_6812865990406302965_n.jpg",
+												"/C:/Users/Martin/Downloads/467210779_1033329722141758_2144620824027342995_n.jpg",
+												"/C:/Users/Martin/Downloads/469806264_1048713123936751_5716448964690998665_n.jpg"
+											],
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "Docs de Prueba",
+											"type": "text"
+										},
+										{
+											"key": "documents",
+											"type": "file",
+											"src": [
+												"/C:/Users/Martin/Downloads/comandos tplink wn722n.txt",
+												"/C:/Users/Martin/Downloads/src_games_breakout_breakout.js"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/67982ffbfb19331ecfecc8ad/documents",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"67982ffbfb19331ecfecc8ad",
+										"documents"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pets",
+					"item": [
+						{
+							"name": "[Pets Post] http://localhost:8080/api/pets/",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepe\", \"specie\":\"Perrro\", \"birthDate\": \"2022-01-02T17:27:25.192Z\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/pets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets GetBy ID] http://localhost:8080/api/pets/:pid",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepe\", \"specie\":\"Paloma\", \"birthDate\": \"2022-01-02T17:27:25.192Z\", \"owner\": \"Diego\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/pets/6765ed36759fb673ddd5f830",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"pets",
+										"6765ed36759fb673ddd5f830"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Put] http://localhost:8080/api/pets/:pid",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepipe\", \"specie\":\"Palloma\", \"birthDate\": \"2024-01-02T17:27:25.192Z\"} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/pets/6765ed36759fb673ddd5f830",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"pets",
+										"6765ed36759fb673ddd5f830"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Get All] http://localhost:8080/api/pets/",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepe\", \"specie\":\"Paloma\", \"birthDate\": \"2022-01-02T17:27:25.192Z\", \"owner\": \"Diego\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/pets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Post w/Image] http://localhost:8080/api/pets/withimage",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pipa",
+											"type": "text"
+										},
+										{
+											"key": "specie",
+											"value": "Paloma",
+											"type": "text"
+										},
+										{
+											"key": "birthDate",
+											"value": "2022-01-02T17:27:25.192Z",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Martin/Downloads/images.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/pets/withimage",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"pets",
+										"withimage"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Put] http://localhost:8080/api/pets/:pid",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Peppe\", \"specie\":\"Paloma\", \"birthDate\": \"2024-01-02T17:27:25.192Z\"} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/pets/6765ed36759fb673ddd5f831",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"pets",
+										"6765ed36759fb673ddd5f831"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Prod",
+			"item": [
+				{
+					"name": "Sessions",
+					"item": [
+						{
+							"name": "[Sessions Current GET] http://localhost:8080/api/sessions/current",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/sessions/current",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"sessions",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Sessions Login POST] http://localhost:8080/api/sessions/login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"email\": \"ddd@ddd.com\", \"password\": \"coder123\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/sessions/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"sessions",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Session SignUp POST] http://localhost:3000/api/sessions/register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"first_name\": \"Prueb\", \"last_name\": \"d\", \"email\": \"ddd@ddd.com\", \"password\": \"coder123\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/sessions/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"sessions",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mocks",
+					"item": [
+						{
+							"name": "[Pets Get Mock Nro] http://localhost:3000/api/mocks/mockingpets?count=2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/mockingpets?count=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"mockingpets"
+									],
+									"query": [
+										{
+											"key": "count",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Get Mock 100] http://localhost:3000/api/mocks/mockingpets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/mockingpets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"mockingpets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Get Mock Nro] http://localhost:3000/api/mocks/mockingusers?count=2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/mockingusers?count=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"mockingusers"
+									],
+									"query": [
+										{
+											"key": "count",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Get Mock 50] http://localhost:3000/api/mocks/mockingusers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/mockingusers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"mockingusers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users 25 & Pets 25 Post] http://localhost:3000/api/mocks/generateData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/generateData",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"generateData"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Nro & Pets Nro Post] http://localhost:3000/api/mocks/generateData?users=2&pets=2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/generateData?users=3&pets=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"generateData"
+									],
+									"query": [
+										{
+											"key": "users",
+											"value": "3"
+										},
+										{
+											"key": "pets",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Nro & Pets Nro Body Post] http://localhost:3000/api/mocks/generateData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"users\": 3, \"pets\": 3 }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/mocks/generateData",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"mocks",
+										"generateData"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Logger",
+					"item": [
+						{
+							"name": "[LoggerTest Get] http://localhost:3000/loggerTest",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/loggerTest",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"loggerTest"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Adoptions",
+					"item": [
+						{
+							"name": "[Adopt Get] http://localhost:3000/api/adoptions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/adoptions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"adoptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Adopt GetBy] http://localhost:3000/api/adoptions/:aid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/adoptions/6767032acdf3ecba96ec379c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"adoptions",
+										"6767032acdf3ecba96ec379c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Adopt Post] http://localhost:3000/api/adoptions/:uid/:pid",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/adoptions/67661d6bc946c871324fa0d1/67661d6bc946c871324fa0df",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"adoptions",
+										"67661d6bc946c871324fa0d1",
+										"67661d6bc946c871324fa0df"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "[Users Post] http://localhost:3000/api/users",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"first_name\":\"Pepe\", \"last_name\":\"Paloma\", \"email\": \"mhd@test.com\", \"password\": \"abc123\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Get] http://localhost:3000/api/users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users GetBy] http://localhost:3000/api/users/:uid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/users/67661d6bc946c871324fa0d2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"67661d6bc946c871324fa0d2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Put] http://localhost:3000/api/users/:uid",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"first_name\":\"Pepe\", \"last_name\":\"MHernndindddddddddddddddddddddddddddddddddddddddddiz\", \"password\": \"abcd123\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/users/67661d6bc946c871324fa0d2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"67661d6bc946c871324fa0d2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Users Del] http://localhost:8080/api/users/:uid",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/users/67661d6bc946c871324fa0d2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"67661d6bc946c871324fa0d2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pets",
+					"item": [
+						{
+							"name": "[Pets Post] http://localhost:3000/api/pets/",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepe\", \"specie\":\"Paloma\", \"birthDate\": \"2022-01-02T17:27:25.192Z\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/pets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets GetBy ID] http://localhost:3000/api/pets/:pid",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/pets/67661d6bc946c871324fa0ff",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"pets",
+										"67661d6bc946c871324fa0ff"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Put] http://localhost:3000/api/pets/:pid",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Pepipe\", \"specie\":\"Palloma\", \"birthDate\": \"2024-01-02T17:27:25.192Z\"} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/pets/67661d6bc946c871324fa0d6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"pets",
+										"67661d6bc946c871324fa0d6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Get All] http://localhost:3000/api/pets/",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/pets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Post w/Image] http://localhost:3000/api/pets/withimage",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pipa",
+											"type": "text"
+										},
+										{
+											"key": "specie",
+											"value": "Paloma",
+											"type": "text"
+										},
+										{
+											"key": "birthDate",
+											"value": "2022-01-02T17:27:25.192Z",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Martin/Downloads/images.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/pets/withimage",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"pets",
+										"withimage"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Pets Put] http://localhost:3000/api/pets/:pid",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/pets/67661d6bc946c871324fa0d6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"pets",
+										"67661d6bc946c871324fa0d6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
