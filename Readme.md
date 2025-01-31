@@ -15,11 +15,45 @@ https://hub.docker.com/repository/docker/martinshernandez/adoptme_mh/general
 
 https://hub.docker.com/r/martinshernandez/adoptme_mh
 
+### Buscar imagen Docker:
+docker search adoptme_mh
 
-### Descargar imagen Docker Hub:
+### Descargar imagen Docker:
 docker pull martinshernandez/adoptme_mh
 
-### Descripcion / Description
+# Procesos realizados para la creacion de imagen Docker:
+
+### Crear imagen Docker (Ubicarse sobre el directorio donde esta el archivo package.json ):
+docker build --network=host -t adoptme_mh .
+
+### Listar imagenes Docker, copiar id de imagen:
+docker images
+
+### Listar Log de imagen Docker:
+docker history <image_id>
+
+### Crear contenedor y correr imagen Docker:
+docker run -d --env-file ./src/.env.dev --name adoptme_mh_c1 -p 8080:8080 adoptme_mh
+
+### Verificar variables de entorno dentro del contenedor:
+docker exec -it adoptme_mh_c1 printenv
+
+# Procesos realizados para la subir imagen Docker:
+## (Deberas estar registrado para iniciar sesion en Docker Hub)
+
+
+### Iniciar sesion en Docker:
+docker login
+
+### Etiquetar imagen Docker:
+docker tag adoptme_mh martinshernandez/adoptme_mh:1.0.0
+
+### Subir imagen a Docker Hub:
+docker push martinshernandez/adoptme_mh:1.0.0
+
+
+
+## Descripcion / Description
 Aplicativo Backend para un sistema de adopcion de mascotas realizado en javascript, express, Handlebars, websocket y BD para el curso de Backend III Testing y Escalabilidad en CoderHouse.  
 
 
