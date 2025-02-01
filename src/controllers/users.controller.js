@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import fs from 'fs/promises';
 import { errorHandler } from "../middleware/ErrorsHandlers/errorHandler.js";
 import { logger } from "../utils/utils.js";
+import { createHash, passwordValidation } from "../utils/index.js";
 
 
 const getAllUsers = async (req, res) => {
@@ -113,7 +114,7 @@ const updateUser = async (req, res, next) => {
 
     try {
         const { first_name, last_name, email, password } = req.body;
-        const updateBody = req.body;
+        let updateBody = req.body;
         const userId = req.params.uid;
 
         req.logger.debug(`> USERS Controller: Update ${userId}...`);
@@ -138,13 +139,17 @@ const updateUser = async (req, res, next) => {
             CustomError.createError("Update User Error", ERROR_MESSAGES.USER.PASSWORD_REQUIRED, errorArgsUser(req.body), ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
-        const user = await usersService.getUserById(userId);
+        let user = await usersService.getUserById(userId);
         if (!user) {
             req.logger.debug(`> USERS Controller: Update: ID ${userId} not found...`);
             req.logger.warning(`User not found.\r\n`);
 
             CustomError.createError("User Not Found", ERROR_MESSAGES.USER.USER_NOT_FOUND, { userId }, ERROR_TYPES.NOT_FOUND);
         }
+
+
+        const hashedPassword = createHash(password);
+        updateBody = { first_name, last_name, password: hashedPassword }
 
         const result = await usersService.update(userId, updateBody);
 
@@ -199,14 +204,14 @@ const addDocuments = async (req, res, next) => {
     try {
         const userId = req.params.uid;
         const { name } = req.body;
-        const files = req.files; 
+        const files = req.files;
         const updates = [];
 
         req.logger.debug(`> USERS Controller: Add Documents to user ${userId}...`);
 
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             req.logger.debug(`> USERS Controller: Invalid User ID: ${userId}`);
-            await removeUploadedFiles(files); 
+            await removeUploadedFiles(files);
             CustomError.createError("User ID Error", ERROR_MESSAGES.USER.INVALID_ID, { userId }, ERROR_TYPES.TIPO_DE_DATOS);
 
         }
@@ -215,7 +220,7 @@ const addDocuments = async (req, res, next) => {
 
         if (!user) {
             req.logger.debug(`> USERS Controller: User not found: ${userId}`);
-            await removeUploadedFiles(files); 
+            await removeUploadedFiles(files);
             CustomError.createError("User Not Found", ERROR_MESSAGES.USER.USER_NOT_FOUND, { userId }, ERROR_TYPES.NOT_FOUND);
         }
 
@@ -227,7 +232,7 @@ const addDocuments = async (req, res, next) => {
 
         if (!name || name.trim() === "") {
             req.logger.debug("> USERS Controller: 'name' field is missing.");
-            await removeUploadedFiles(files); 
+            await removeUploadedFiles(files);
             CustomError.createError("Missing Name Field", "The 'name' field is required.", { userId }, ERROR_TYPES.ARGUMENTOS_INVALIDOS);
         }
 
@@ -250,7 +255,7 @@ const addDocuments = async (req, res, next) => {
 
         res.send({ status: "success", payload: user.documents });
     } catch (error) {
-        await removeUploadedFiles(req.files); 
+        await removeUploadedFiles(req.files);
         next(error);
     }
 }
@@ -258,7 +263,7 @@ const addDocuments = async (req, res, next) => {
 const removeUploadedFiles = async (files) => {
     if (!files) return;
     try {
-        await Promise.all( Object.values(files).flat().map(file => fs.unlink(file.path))  );
+        await Promise.all(Object.values(files).flat().map(file => fs.unlink(file.path)));
     } catch (err) {
         //console.error("Error deleting files:", err);       
     }
